@@ -20,7 +20,7 @@ app = dash.Dash(
 server = app.server
 
 # Custom CSS for consistent font styling
-<!DOCTYPE html>
+app.index_string = '''<!DOCTYPE html>
 <html>
     <head>
         {%metas%}
@@ -50,8 +50,7 @@ server = app.server
             {%renderer%}
         </footer>
     </body>
-</html>
-'''
+</html>'''
 
 # Create DataFrames with the data
 monthly_data = pd.DataFrame({

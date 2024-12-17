@@ -12,7 +12,7 @@ app = dash.Dash(
     __name__, 
     external_stylesheets=[
         dbc.themes.FLATLY,
-        'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap'
+        'https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
     ]
 )
 
@@ -20,7 +20,6 @@ app = dash.Dash(
 server = app.server
 
 # Custom CSS for consistent font styling
-app.index_string = '''
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,27 +29,16 @@ app.index_string = '''
         {%css%}
         <style>
             * {
-                font-family: 'Cinzel', serif;
+                font-family: 'Bebas Neue', sans-serif;
             }
             .regular-text {
-                font-family: 'Cinzel', serif;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             }
             .card-body p, .card-body text {
-                font-family: 'Cinzel', serif;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             }
             .card {
                 margin-bottom: 1rem;
-            }
-            .card-title {
-                font-size: 1.1rem;
-                font-weight: 600;
-            }
-            .card-header {
-                font-size: 1.2rem;
-                font-weight: 600;
-            }
-            h1 {
-                font-weight: 700;
             }
         </style>
     </head>

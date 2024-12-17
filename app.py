@@ -1,22 +1,69 @@
-# app.py
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import dash
 from dash import dcc, html
 import dash_bootstrap_components as dbc
-from datetime import datetime
 import numpy as np
 import os
 
 # Initialize the app with custom styling
-app = dash.Dash(__name__, external_stylesheets=[
-    dbc.themes.FLATLY,
-    'https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
-])
+app = dash.Dash(
+    __name__, 
+    external_stylesheets=[
+        dbc.themes.FLATLY,
+        'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap'
+    ]
+)
 
 # This is important for Render deployment
 server = app.server
+
+# Custom CSS for consistent font styling
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+        <style>
+            * {
+                font-family: 'Cinzel', serif;
+            }
+            .regular-text {
+                font-family: 'Cinzel', serif;
+            }
+            .card-body p, .card-body text {
+                font-family: 'Cinzel', serif;
+            }
+            .card {
+                margin-bottom: 1rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+            .card-header {
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+            h1 {
+                font-weight: 700;
+            }
+        </style>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
 
 # Create DataFrames with the data
 monthly_data = pd.DataFrame({
@@ -152,9 +199,9 @@ app.layout = dbc.Container([
                                     value=137.07142374,
                                     number={"prefix": "KES ", "suffix": "M",
                                            "valueformat": ".1f",
-                                           "font": {"size": 28}},
+                                           "font": {"size": 24}},
                                     title={"text": "Peak Daily Volume",
-                                           "font": {"size": 16},
+                                           "font": {"size": 14},
                                            "align": "center"},
                                     domain={'x': [0.05, 0.45], 'y': [0.65, 0.95]}
                                 ),
@@ -163,9 +210,9 @@ app.layout = dbc.Container([
                                     value=61.6661485,
                                     number={"prefix": "KES ", "suffix": "M",
                                            "valueformat": ".1f",
-                                           "font": {"size": 28}},
+                                           "font": {"size": 24}},
                                     title={"text": "Average Daily Volume",
-                                           "font": {"size": 16},
+                                           "font": {"size": 14},
                                            "align": "center"},
                                     domain={'x': [0.55, 0.95], 'y': [0.65, 0.95]}
                                 ),
@@ -173,9 +220,9 @@ app.layout = dbc.Container([
                                     mode="number",
                                     value=9044,
                                     number={"valueformat": ",",
-                                           "font": {"size": 28}},
+                                           "font": {"size": 24}},
                                     title={"text": "Peak Daily Transactions",
-                                           "font": {"size": 16},
+                                           "font": {"size": 14},
                                            "align": "center"},
                                     domain={'x': [0.05, 0.45], 'y': [0.375, 0.625]}
                                 ),
@@ -183,9 +230,9 @@ app.layout = dbc.Container([
                                     mode="number",
                                     value=4627,
                                     number={"valueformat": ",",
-                                           "font": {"size": 28}},
+                                           "font": {"size": 24}},
                                     title={"text": "Average Daily Transactions",
-                                           "font": {"size": 16},
+                                           "font": {"size": 14},
                                            "align": "center"},
                                     domain={'x': [0.55, 0.95], 'y': [0.375, 0.625]}
                                 ),

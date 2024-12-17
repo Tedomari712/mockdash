@@ -66,7 +66,7 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Div([
                 # Replace YOUR_IMAGE_URL with the actual URL where you'll host your image
-                html.Img(src='YOUR_IMAGE_URL',
+                html.Img(src='https://github.com/Tedomari712/mockdash/blob/main/vngrd.PNG?raw=true',
                      className='logo', 
                      style={'height': '150px', 'object-fit': 'contain'})
             ], style={'display': 'flex', 'justifyContent': 'center', 'alignItems': 'center', 'padding': '40px', 'marginBottom': '30px', 'width': '100%'}),

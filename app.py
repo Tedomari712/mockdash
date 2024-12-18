@@ -259,7 +259,7 @@ app.layout = dbc.Container([
                         dbc.Row([
                             dbc.Col([
                                 html.P("Peak Volume Day: November 8, 2024", className="regular-text mb-1"),
-                                html.P("Lowest Volume Day: November 12, 2024", className="regular-text mb-0")
+                                html.P("Lowest Volume Day: November 12, 2024(KES 4.6M)", className="regular-text mb-0")
                             ])
                         ])
                     ], className="small")

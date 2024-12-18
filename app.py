@@ -233,11 +233,11 @@ app.layout = dbc.Container([
                                            "font": {"size": 28}},
                                     gauge={
                                         'axis': {'range': [0, 100]},
-                                        'bar': {'color': "rgb(255, 215, 0)"},
+                                        'bar': {'color': "darkgreen"},
                                         'steps': [
                                             {'range': [0, 85], 'color': 'rgba(255, 99, 71, 0.3)'},
                                             {'range': [85, 95], 'color': 'rgba(255, 215, 0, 0.3)'},
-                                            {'range': [95, 100], 'color': 'rgba(255, 2150, 0, 0.3)'}
+                                            {'range': [95, 100], 'color': 'rgba(0, 128, 0, 0.3)'}
                                         ],
                                         'threshold': {
                                             'line': {'color': "red", 'width': 2},

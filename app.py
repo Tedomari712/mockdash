@@ -1,3 +1,24 @@
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import dash
+from dash import dcc, html
+import dash_bootstrap_components as dbc
+import numpy as np
+import os
+
+# Initialize the app with custom styling
+app = dash.Dash(
+    __name__, 
+    external_stylesheets=[
+        dbc.themes.FLATLY,
+        'https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
+    ]
+)
+
+# This is important for Render deployment
+server = app.server
+
 # Create DataFrames with the data
 monthly_data = pd.DataFrame({
     'Metric': ['Total Transactions', 'Transaction Volume (KES)', 'Successful Transactions', 

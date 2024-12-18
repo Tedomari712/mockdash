@@ -1,66 +1,12 @@
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
-import dash
-from dash import dcc, html
-import dash_bootstrap_components as dbc
-import numpy as np
-import os
-
-# Initialize the app with custom styling
-app = dash.Dash(
-    __name__, 
-    external_stylesheets=[
-        dbc.themes.FLATLY,
-        'https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'
-    ]
-)
-
-# This is important for Render deployment
-server = app.server
-
-# Custom CSS for consistent font styling
-app.index_string = '''<!DOCTYPE html>
-<html>
-    <head>
-        {%metas%}
-        <title>{%title%}</title>
-        {%favicon%}
-        {%css%}
-        <style>
-            * {
-                font-family: 'Bebas Neue', sans-serif;
-            }
-            .regular-text {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            }
-            .card-body p, .card-body text {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            }
-            .card {
-                margin-bottom: 1rem;
-            }
-        </style>
-    </head>
-    <body>
-        {%app_entry%}
-        <footer>
-            {%config%}
-            {%scripts%}
-            {%renderer%}
-        </footer>
-    </body>
-</html>'''
-
 # Create DataFrames with the data
 monthly_data = pd.DataFrame({
     'Metric': ['Total Transactions', 'Transaction Volume (KES)', 'Successful Transactions', 
                'Failed Transactions', 'Success Rate (%)', 'Unique Remitters', 
-               'Unique Recipients', 'Unique Countries'],
-    'October': [169780, 2230387153.64, 166597, 3183, 98.1, 34715, 80602, 64],
-    'November': [138824, 1849984455.07, 131222, 7602, 94.5, 25236, 63104, 43],
-    'Net Change': [-30956, -380402698.57, -35375, 4419, -3.6, -9479, -17498, -21],
-    'Change %': [-18.23, -17.06, -21.23, 138.83, -3.67, -27.31, -21.71, -32.81]
+               'Unique Recipients', 'Unique Countries', 'Average Transaction (KES)'],
+    'October': [169780, 2230387153.64, 166597, 3183, 98.1, 34715, 80602, 64, 13387.92],
+    'November': [138824, 1849984455.07, 131222, 7602, 94.5, 25236, 63104, 43, 14098.13],
+    'Net Change': [-30956, -380402698.57, -35375, 4419, -3.6, -9479, -17498, -21, 710.21],
+    'Change %': [-18.23, -17.06, -21.23, 138.83, -3.67, -27.31, -21.71, -32.81, 5.30]
 })
 
 failure_data = pd.DataFrame({
@@ -99,7 +45,6 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.Div([
-                # Replace YOUR_IMAGE_URL with the actual URL where you'll host your image
                 html.Img(src='https://github.com/Tedomari712/mockdash/blob/main/vngrd.PNG?raw=true',
                      className='logo', 
                      style={'height': '150px', 'object-fit': 'contain'})
@@ -121,7 +66,7 @@ app.layout = dbc.Container([
                     html.P([
                         html.Span("MoM Change: ", className="regular-text"),
                         html.Span(f"{monthly_data.loc[0, 'Change %']}%",
-                                className=f"regular-text {'text-danger' if monthly_data.loc[0, 'Change %'] < 0 else 'text-success'}")
+                                className="regular-text text-danger")
                     ], className="text-center")
                 ])
             ], className="shadow-sm")
@@ -137,7 +82,7 @@ app.layout = dbc.Container([
                     html.P([
                         html.Span("MoM Change: ", className="regular-text"),
                         html.Span(f"{monthly_data.loc[4, 'Change %']}%",
-                                className=f"regular-text {'text-danger' if monthly_data.loc[4, 'Change %'] < 0 else 'text-success'}")
+                                className="regular-text text-danger")
                     ], className="text-center")
                 ])
             ], className="shadow-sm")
@@ -151,7 +96,7 @@ app.layout = dbc.Container([
                     html.P([
                         html.Span("MoM Change: ", className="regular-text"),
                         html.Span(f"{monthly_data.loc[1, 'Change %']}%",
-                                className=f"regular-text {'text-danger' if monthly_data.loc[1, 'Change %'] < 0 else 'text-success'}")
+                                className="regular-text text-danger")
                     ], className="text-center")
                 ])
             ], className="shadow-sm")
@@ -160,11 +105,13 @@ app.layout = dbc.Container([
             dbc.Card([
                 dbc.CardBody([
                     html.H5("Avg. Transaction", className="card-title text-center"),
-                    html.H2(f"{monthly_data.loc[1, 'November']/monthly_data.loc[0, 'November']:,.0f}", 
+                    html.H2(f"{monthly_data.loc[8, 'November']:,.2f}", 
                            className="text-primary text-center"),
                     html.P([
-                        html.Span("KES per transaction", className="regular-text")
-                    ], className="text-center text-muted")
+                        html.Span("MoM Change: ", className="regular-text"),
+                        html.Span(f"+{monthly_data.loc[8, 'Change %']}%",
+                                className="regular-text text-success")
+                    ], className="text-center")
                 ])
             ], className="shadow-sm")
         ])
@@ -246,7 +193,7 @@ app.layout = dbc.Container([
                                         }
                                     },
                                     domain={'x': [0.15, 0.85], 'y': [0.02, 0.32]}
-                                ),
+                                )
                             ]
                         ).update_layout(
                             height=550,
@@ -444,7 +391,10 @@ app.layout = dbc.Container([
                             color='Percentage',
                             hover_data=['Percentage'],
                             color_continuous_scale='RdYlBu_r'
-                        ).update_layout(height=400)
+                        ).update_layout(
+                            height=400,
+                            margin=dict(l=20, r=20, t=30, b=20)
+                        )
                     )
                 ])
             ], className="shadow-sm")
@@ -462,12 +412,15 @@ app.layout = dbc.Container([
                             color='Transactions',
                             hover_data=['Transactions'],
                             color_continuous_scale='Viridis'
-                        ).update_layout(height=400)
+                        ).update_layout(
+                            height=400,
+                            margin=dict(l=20, r=20, t=30, b=20)
+                        )
                     )
                 ])
             ], className="shadow-sm")
         ], width=6)
-    ], className="mb-4"),
+    ], className="mb-4")
 
 ], fluid=True, className="p-4")
 

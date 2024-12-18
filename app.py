@@ -233,11 +233,11 @@ app.layout = dbc.Container([
                                            "font": {"size": 28}},
                                     gauge={
                                         'axis': {'range': [0, 100]},
-                                        'bar': {'color': "darkgreen"},
+                                        'bar': {'color': "rgb(255, 215, 0)"},
                                         'steps': [
                                             {'range': [0, 85], 'color': 'rgba(255, 99, 71, 0.3)'},
                                             {'range': [85, 95], 'color': 'rgba(255, 215, 0, 0.3)'},
-                                            {'range': [95, 100], 'color': 'rgba(0, 128, 0, 0.3)'}
+                                            {'range': [95, 100], 'color': 'rgba(255, 2150, 0, 0.3)'}
                                         ],
                                         'threshold': {
                                             'line': {'color': "red", 'width': 2},
@@ -259,7 +259,6 @@ app.layout = dbc.Container([
                         dbc.Row([
                             dbc.Col([
                                 html.P("Peak Volume Day: November 8, 2024", className="regular-text mb-1"),
-                                html.P("Peak Transactions Day: November 8, 2024", className="regular-text mb-1"),
                                 html.P("Lowest Volume Day: November 12, 2024", className="regular-text mb-0")
                             ])
                         ])

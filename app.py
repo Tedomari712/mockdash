@@ -639,6 +639,8 @@ app.layout = dbc.Container([
 
     # Client Market Share and Performance
     dbc.Row([
+        # Client Market Share and Performance
+    dbc.Row([
         # Client Market Share
         dbc.Col([
             dbc.Card([
@@ -684,16 +686,11 @@ app.layout = dbc.Container([
                             )
                         )
                     ),
-                    # Debug print for available logos
-                    html.Div(id='debug-logos', children=[
-                        html.P(f"Available logos: {list(CLIENT_LOGOS.keys())}")
-                    ]),
-                    # Client logos display
                     html.Div(
                         [
                             html.Div([
                                 html.Img(
-                                    src=f'assets/{CLIENT_LOGOS[client]}',  # Updated path
+                                    src=f'assets/{CLIENT_LOGOS[client]}',
                                     style={
                                         'width': '60px',
                                         'height': '30px',

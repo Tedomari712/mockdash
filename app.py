@@ -139,12 +139,24 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
             html.Div([
-                html.H1(
-                    "2024 Mobile Wallet Transfer Analysis", 
-                    className="text-primary text-center mb-4",
-                    style={'letterSpacing': '2px'}
+                html.Img(
+                    src='assets/vngrd.PNG',  # Updated path
+                    className='logo', 
+                    style={'height': '150px', 'object-fit': 'contain'}
                 )
-            ])
+            ], style={
+                'display': 'flex', 
+                'justifyContent': 'center', 
+                'alignItems': 'center', 
+                'padding': '40px', 
+                'marginBottom': '30px', 
+                'width': '100%'
+            }),
+            html.H1(
+                "2024 Mobile Wallet Transfer Analysis", 
+                className="text-primary text-center mb-4",
+                style={'letterSpacing': '2px'}
+            )
         ])
     ]),
 
@@ -672,35 +684,51 @@ app.layout = dbc.Container([
                             )
                         )
                     ),
-                    html.Div([
-                        html.Div([
-                            html.Img(
-                                src=f'/assets/{CLIENT_LOGOS.get(client, "Others.jpg")}',
-                                id=f'client-logo-{client}',
-                                style={
-                                    'width': '60px',
-                                    'height': '30px',
-                                    'objectFit': 'contain',
-                                    'margin': '5px',
-                                    'padding': '5px',
-                                    'backgroundColor': '#ffffff',
-                                    'borderRadius': '4px',
-                                    'boxShadow': '0 1px 3px rgba(0,0,0,0.1)'
-                                }
-                            )
-                        ], style={
+                    # Debug print for available logos
+                    html.Div(id='debug-logos', children=[
+                        html.P(f"Available logos: {list(CLIENT_LOGOS.keys())}")
+                    ]),
+                    # Client logos display
+                    html.Div(
+                        [
+                            html.Div([
+                                html.Img(
+                                    src=f'assets/{CLIENT_LOGOS[client]}',  # Updated path
+                                    style={
+                                        'width': '60px',
+                                        'height': '30px',
+                                        'objectFit': 'contain',
+                                        'margin': '5px',
+                                        'padding': '5px',
+                                        'backgroundColor': '#ffffff',
+                                        'borderRadius': '4px',
+                                        'boxShadow': '0 1px 3px rgba(0,0,0,0.1)'
+                                    }
+                                )
+                            ]) for client in client_data['Client'].unique() 
+                            if client in CLIENT_LOGOS
+                        ],
+                        style={
                             'display': 'flex',
+                            'flexWrap': 'wrap',
+                            'justifyContent': 'center',
                             'alignItems': 'center',
-                            'justifyContent': 'center'
-                        }) for client in client_data['Client'] if client not in ['Others']
-                    ], style={
-                        'display': 'flex',
-                        'flexWrap': 'wrap',
-                        'justifyContent': 'center',
-                        'alignItems': 'center',
-                        'marginTop': '20px',
-                        'gap': '10px'
-                    }),
+                            'marginTop': '20px',
+                            'gap': '10px'
+                        }
+                    ),
+                    html.Div([
+                        html.P([
+                            "Top Client: Lemfi ",
+                            html.Span(
+                                f"({client_data['Market_Share'].max():.1f}% market share)",
+                                className="text-muted"
+                            )
+                        ], className="mb-0 mt-3 regular-text text-center")
+                    ])
+                ])
+            ], className="shadow-sm")
+        ], width=6),
                     html.Div([
                         html.P([
                             "Top Client: Lemfi ",

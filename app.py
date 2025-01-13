@@ -12,14 +12,14 @@ import os
 # Add the logo mappings here, before app initialization
 # File name mappings for clients
 CLIENT_LOGOS = {
-    'Lemfi': 'LEMFI.png',
-    'DLocal': 'DLocal.png',
-    'Tangent': 'Tangent.jpg',
-    'Nala': 'Nala.png',
-    'Wapipay': 'wapipay.jpg',
-    'Cellulant': 'Cellulant.png',
-    'Hello FXBud': 'fxbud.jpg',
-    'Finpesa': 'finpesa.png'
+    'Lemfi': 'CLIENT_LOGOS/LEMFI.png',
+    'DLocal': 'CLIENT_LOGOS/DLocal.png',
+    'Tangent': 'CLIENT_LOGOS/Tangent.jpg',
+    'Nala': 'CLIENT_LOGOS/Nala.png',
+    'Wapipay': 'CLIENT_LOGOS/wapipay.jpg',
+    'Cellulant': 'CLIENT_LOGOS/Cellulant.png',
+    'Hello FXBud': 'CLIENT_LOGOS/fxbud.jpg',
+    'Finpesa': 'CLIENT_LOGOS/finpesa.png'
 }
 
 # Initialize the app
@@ -93,36 +93,28 @@ failure_data = pd.DataFrame({
     'Percentage': [1.39, 18.98, 9.04, 52.02, 2.08, 2.74, 0.81, 0.32, 0.93, 7.83, 3.86]
 })
 
-# Hourly data with 30-minute intervals - from image
+# Updated hourly data with half-hour intervals
 hourly_data = pd.DataFrame({
-    'Hour': ['12:00:00 AM', '12:30:00 AM', '1:00:00 AM', '1:30:00 AM', '2:00:00 AM', '2:30:00 AM',
-            '3:00:00 AM', '3:30:00 AM', '4:00:00 AM', '4:30:00 AM', '5:00:00 AM', '5:30:00 AM',
-            '6:00:00 AM', '6:30:00 AM', '7:00:00 AM', '7:30:00 AM', '8:00:00 AM', '8:30:00 AM',
+    'Hour': ['12:00:00 AM', '12:30:00 AM', '1:00:00 AM', '1:30:00 AM', '2:00:00 AM', '2:30:00 AM', 
+            '3:00:00 AM', '3:30:00 AM', '4:00:00 AM', '4:30:00 AM', '5:00:00 AM', '5:30:00 AM', 
+            '6:00:00 AM', '6:30:00 AM', '7:00:00 AM', '7:30:00 AM', '8:00:00 AM', '8:30:00 AM', 
             '9:00:00 AM', '9:30:00 AM', '10:00:00 AM', '10:30:00 AM', '11:00:00 AM', '11:30:00 AM',
             '12:00:00 PM', '12:30:00 PM', '1:00:00 PM', '1:30:00 PM', '2:00:00 PM', '2:30:00 PM',
             '3:00:00 PM', '3:30:00 PM', '4:00:00 PM', '4:30:00 PM', '5:00:00 PM', '5:30:00 PM',
             '6:00:00 PM', '6:30:00 PM', '7:00:00 PM', '7:30:00 PM', '8:00:00 PM', '8:30:00 PM',
             '9:00:00 PM', '9:30:00 PM', '10:00:00 PM', '10:30:00 PM', '11:00:00 PM', '11:30:00 PM'],
-    'Volume': [
-        239901818.81, 244991276.09, 225345783.38, 239690642.99, 261409055.99, 286688826.43,
-        336935592.92, 365831601.29, 426891279.31, 475891128.44, 518967965.34, 558806726.45,
-        593022936.74, 611179510.15, 685317245.20, 667263464.74, 692677269.65, 697109566.67,
-        739877303.90, 735930672.71, 744234540.79, 759891766.66, 784129511.47, 760450859.64,
-        796315758.28, 783213808.44, 834070722.89, 841420254.91, 802473919.21, 800976384.25,
-        785374503.63, 766217167.73, 762218552.20, 721923234.09, 658575263.68, 643863311.42,
-        611843138.71, 611227839.98, 585600775.32, 533709014.43, 509964810.15, 461427440.03,
-        444715572.40, 400121854.04, 355988522.99, 336914663.10, 293197740.74, 250658084.10
-    ],
-    'Count': [
-        13227, 12799, 12627, 13473, 15001, 16630,
-        19864, 22101, 26156, 29393, 32579, 35504,
-        38688, 40719, 44114, 43998, 46626, 47937,
-        50107, 50920, 53048, 51906, 54098, 54047,
-        56413, 66726, 69391, 60756, 60297, 60479,
-        59526, 58740, 56640, 53619, 50586, 48568,
-        45561, 44122, 40435, 37372, 33066, 29971,
-        27130, 24256, 21395, 19049, 16791, 14891
-    ]
+    'Volume': [239901818.81, 244991276.09, 225345783.38, 239690642.99, 261409055.99, 286688826.43,
+              336935592.92, 365831601.29, 426891279.31, 475891128.44, 518967965.34, 558806726.45,
+              593022936.74, 611179510.15, 685317245.20, 667263464.74, 692677269.65, 697109566.67,
+              739877303.90, 735930672.71, 744234540.79, 759891766.66, 784129511.47, 760450859.64,
+              796315758.28, 783213808.44, 834070722.89, 841420254.91, 802473919.21, 800976384.25,
+              785374503.63, 766217167.73, 762218552.20, 721923234.09, 658575263.68, 643863311.42,
+              611843138.71, 611227839.98, 585600775.32, 533709014.43, 509964810.15, 461427440.03,
+              444715572.40, 400121854.04, 355988522.99, 336914663.10, 293197740.74, 250658084.10],
+    'Count': [13227, 12799, 12627, 13473, 15001, 16630, 19864, 22101, 26156, 29393, 32579, 35504,
+              38688, 40719, 44114, 43998, 46626, 47937, 50107, 50920, 53048, 51906, 54098, 54047,
+              56413, 66726, 69391, 60756, 60297, 60479, 59526, 58740, 56640, 53619, 50586, 48568,
+              45561, 44122, 40435, 37372, 33066, 29971, 27130, 24256, 21395, 19049, 16791, 14891]
 })
 
 # Country data - excluding Unknown
@@ -159,7 +151,7 @@ app.layout = dbc.Container([
         dbc.Col([
             html.Div([
                 html.Img(
-                    src='assets/vngrd.PNG',  # Updated path
+                    src='assets/vngrd.PNG',
                     className='logo', 
                     style={'height': '150px', 'object-fit': 'contain'}
                 )
@@ -233,14 +225,14 @@ app.layout = dbc.Container([
                     html.P([
                         html.Span("Monthly Average: ", className="regular-text"),
                         html.Span(
-                            f"KES {monthly_data['Volume'].mean()/1e6:.1f}M",
+                            f"KES 2.27B",
                             className="regular-text text-success"
                         )
                     ], className="text-center")
                 ])
             ], className="shadow-sm")
         ]),
-        
+
         # Unique Users Card
         dbc.Col([
             dbc.Card([
@@ -393,7 +385,7 @@ app.layout = dbc.Container([
                                 y=[0.85, 0.85, 0.85],
                                 mode='text',
                                 text=[
-                                    f"{len(country_data[country_data['Country'] != 'Unknown'])}",
+                                    f"64",
                                     f"{monthly_data['Unique_Remitters'].sum():,}",
                                     f"{monthly_data['Unique_Recipients'].sum():,}"
                                 ],
@@ -614,7 +606,7 @@ app.layout = dbc.Container([
                                 mode='lines+markers',
                                 name='Volume',
                                 marker=dict(
-                                    size=8,
+                                    size=6,
                                     color='rgba(26, 118, 255, 0.8)'
                                 ),
                                 line=dict(
@@ -627,9 +619,9 @@ app.layout = dbc.Container([
                                 x=hourly_data['Hour'],
                                 y=hourly_data['Count'],
                                 mode='lines+markers',
-                                name='Transactions',
+                                name='Transaction Count',
                                 marker=dict(
-                                    size=8,
+                                    size=6,
                                     color='rgba(255, 128, 0, 0.8)'
                                 ),
                                 line=dict(
@@ -639,7 +631,7 @@ app.layout = dbc.Container([
                                 yaxis='y2'
                             )
                         ]).update_layout(
-                            title='Hourly Transaction Distribution',
+                            title='Hourly Volume and Transaction Count Distribution',
                             xaxis_title='Hour of Day',
                             yaxis=dict(
                                 title='Volume (KES Millions)',
@@ -653,8 +645,8 @@ app.layout = dbc.Container([
                                 overlaying='y',
                                 side='right'
                             ),
-                            height=400,
-                            margin=dict(l=50, r=50, t=50, b=30),
+                            height=350,
+                            margin=dict(l=50, r=50, t=50, b=100),
                             legend=dict(
                                 orientation="h",
                                 y=1.1,
@@ -662,17 +654,24 @@ app.layout = dbc.Container([
                                 xanchor='center'
                             ),
                             xaxis=dict(
+                                tickangle=-45,
                                 tickmode='array',
-                                ticktext=[f'{i:02d}:00' for i in range(24)],
-                                tickvals=list(range(24))
+                                ticktext=hourly_data['Hour'],
+                                tickvals=list(range(len(hourly_data)))
                             )
                         )
                     ),
                     html.Div([
                         html.P([
-                            "Peak Hour: 11 PM ",
+                            "Peak Volume: 1:30 PM ",
                             html.Span(
-                                f"(KES {hourly_data['Volume'].max()/1e6:.1f}M, {hourly_data['Count'].max():,} transactions)",
+                                f"(KES {hourly_data['Volume'].max()/1e6:.1f}M)",
+                                className="text-muted"
+                            ),
+                            html.Br(),
+                            "Peak Transactions: 1:00 PM ",
+                            html.Span(
+                                f"({hourly_data['Count'].max():,} transactions)",
                                 className="text-muted"
                             )
                         ], className="mb-0 mt-3 regular-text")
@@ -683,8 +682,6 @@ app.layout = dbc.Container([
     ], className="mb-4"),
 
     # Client Market Share and Performance
-    dbc.Row([
-        # Client Market Share and Performance
     dbc.Row([
         # Client Market Share
         dbc.Col([
@@ -771,19 +768,7 @@ app.layout = dbc.Container([
                 ])
             ], className="shadow-sm")
         ], width=6),
-                    html.Div([
-                        html.P([
-                            "Top Client: Lemfi ",
-                            html.Span(
-                                f"({client_data['Market_Share'].max():.1f}% market share)",
-                                className="text-muted"
-                            )
-                        ], className="mb-0 mt-3 regular-text text-center")
-                    ])
-                ])
-            ], className="shadow-sm")
-        ], width=6),
-        
+
         # Client Performance
         dbc.Col([
             dbc.Card([

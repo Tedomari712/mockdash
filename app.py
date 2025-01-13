@@ -12,14 +12,14 @@ import os
 # Add the logo mappings here, before app initialization
 # File name mappings for clients
 CLIENT_LOGOS = {
-    'Lemfi': 'LEMFI.png',
-    'DLocal': 'DLocal.png',
-    'Tangent': 'Tangent.jpg',
-    'Nala': 'Nala.png',
-    'Wapipay': 'wapipay.jpg',
-    'Cellulant': 'Cellulant.png',
-    'Hello FXBud': 'fxbud.jpg',
-    'Finpesa': 'finpesa.png'
+    'Lemfi': 'CLIENT_LOGOS/LEMFI.png',
+    'DLocal': 'CLIENT_LOGOS/DLocal.png',
+    'Tangent': 'CLIENT_LOGOS/Tangent.jpg',
+    'Nala': 'CLIENT_LOGOS/Nala.png',
+    'Wapipay': 'CLIENT_LOGOS/wapipay.jpg',
+    'Cellulant': 'CLIENT_LOGOS/Cellulant.png',
+    'Hello FXBud': 'CLIENT_LOGOS/fxbud.jpg',
+    'Finpesa': 'CLIENT_LOGOS/finpesa.png'
 }
 
 # Initialize the app

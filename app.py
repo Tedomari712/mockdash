@@ -638,7 +638,13 @@ app.layout = dbc.Container([
                                 labels=client_data['Client'],
                                 values=client_data['Volume'],
                                 textinfo='label+percent',
-                                hole=0.3,
+                                hole=0.4,
+                                marker=dict(
+                                    colors=['rgb(82, 109, 255)', 'rgb(255, 99, 71)', 
+                                           'rgb(32, 178, 170)', 'rgb(255, 159, 64)',
+                                           'rgb(153, 102, 255)', 'rgb(255, 99, 132)',
+                                           'rgb(75, 192, 192)', 'rgb(54, 162, 235)']
+                                ),
                                 hovertemplate=(
                                     "<b>%{label}</b><br>" +
                                     "Volume: KES %{value:,.2f}<br>" +
@@ -646,43 +652,54 @@ app.layout = dbc.Container([
                                 )
                             )]
                         ).update_layout(
-                            title='Transaction Volume by Client',
+                            title={
+                                'text': 'Transaction Volume by Client',
+                                'y': 0.95,
+                                'x': 0.5,
+                                'xanchor': 'center',
+                                'yanchor': 'top'
+                            },
                             height=400,
                             margin=dict(l=20, r=20, t=50, b=20),
                             showlegend=True,
                             legend=dict(
-                                orientation="h",
-                                yanchor="bottom",
-                                y=-0.2,
-                                xanchor="center",
-                                x=0.5
+                                orientation="v",
+                                yanchor="middle",
+                                y=0.5,
+                                xanchor="left",
+                                x=1.1,
+                                font=dict(size=11)
                             )
                         )
                     ),
                     html.Div([
-                        *[
+                        html.Div([
                             html.Img(
                                 src=f'/assets/{CLIENT_LOGOS.get(client, "Others.jpg")}',
                                 id=f'client-logo-{client}',
                                 style={
-                                    'maxWidth': '80px',
-                                    'maxHeight': '40px',
-                                    'width': 'auto',
-                                    'height': 'auto',
+                                    'width': '60px',
+                                    'height': '30px',
                                     'objectFit': 'contain',
                                     'margin': '5px',
                                     'padding': '5px',
-                                    'backgroundColor': '#f8f9fa',
-                                    'borderRadius': '5px'
+                                    'backgroundColor': '#ffffff',
+                                    'borderRadius': '4px',
+                                    'boxShadow': '0 1px 3px rgba(0,0,0,0.1)'
                                 }
-                            ) for client in client_data['Client']
-                        ]
+                            )
+                        ], style={
+                            'display': 'flex',
+                            'alignItems': 'center',
+                            'justifyContent': 'center'
+                        }) for client in client_data['Client'] if client not in ['Others']
                     ], style={
                         'display': 'flex',
                         'flexWrap': 'wrap',
                         'justifyContent': 'center',
                         'alignItems': 'center',
-                        'marginTop': '20px'
+                        'marginTop': '20px',
+                        'gap': '10px'
                     }),
                     html.Div([
                         html.P([

@@ -639,8 +639,6 @@ app.layout = dbc.Container([
 
     # Client Market Share and Performance
     dbc.Row([
-        # Client Market Share and Performance
-    dbc.Row([
         # Client Market Share
         dbc.Col([
             dbc.Card([
@@ -714,18 +712,6 @@ app.layout = dbc.Container([
                             'gap': '10px'
                         }
                     ),
-                    html.Div([
-                        html.P([
-                            "Top Client: Lemfi ",
-                            html.Span(
-                                f"({client_data['Market_Share'].max():.1f}% market share)",
-                                className="text-muted"
-                            )
-                        ], className="mb-0 mt-3 regular-text text-center")
-                    ])
-                ])
-            ], className="shadow-sm")
-        ], width=6),
                     html.Div([
                         html.P([
                             "Top Client: Lemfi ",

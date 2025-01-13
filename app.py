@@ -9,6 +9,19 @@ import dash_bootstrap_components as dbc
 import numpy as np
 import os
 
+# Add the logo mappings here, before app initialization
+# File name mappings for clients
+CLIENT_LOGOS = {
+    'Lemfi': 'LEMFI.png',
+    'DLocal': 'DLocal.png',
+    'Tangent': 'Tangent.jpg',
+    'Nala': 'Nala.png',
+    'Wapipay': 'wapipay.jpg',
+    'Cellulant': 'Cellulant.png',
+    'Hello FXBud': 'fxbud.jpg',
+    'Finpesa': 'finpesa.png'
+}
+
 # Initialize the app
 app = dash.Dash(
     __name__, 
@@ -80,7 +93,20 @@ failure_data = pd.DataFrame({
     'Percentage': [1.39, 18.98, 9.04, 52.02, 2.08, 2.74, 0.81, 0.32, 0.93, 7.83, 3.86]
 })
 
-# Country data
+# Hourly data
+hourly_data = pd.DataFrame({
+    'Hour': [f'{i:02d}:00' for i in range(24)],
+    'Volume': [239901818.81, 244991276.09, 225345783.38, 239690642.99, 261409055.99,
+               286688826.43, 336935592.92, 365831601.29, 426891279.31, 475991128.44,
+               518967965.34, 558806726.45, 593022936.74, 611179510.15, 685317245.20,
+               667263464.74, 692677269.65, 697109566.67, 739877303.90, 735930672.71,
+               744234540.79, 759891766.66, 784129511.47, 760450859.64],
+    'Count': [13327, 12799, 12627, 13473, 15001, 16630, 19864, 22101, 26156, 29393,
+              32579, 35504, 38688, 40719, 44114, 43998, 46626, 47937, 50107, 50920,
+              53048, 51906, 54098, 54047]
+})
+
+# Country data - excluding Unknown
 country_data = pd.DataFrame({
     'Country': ['CAN', 'FIN', 'GBR', 'GER', 'IRL', 'KEN', 'NGA', 'UGA', 'USA', 'Unknown'],
     'Volume': [1517951948.64, 307421630.62, 11315946583.70, 101630751.00, 153890861.47,
@@ -265,6 +291,110 @@ app.layout = dbc.Container([
         ], width=12)
     ], className="mb-4"),
 
+    # Success Rate Gauge and User Activity
+    dbc.Row([
+        # Success Rate Gauge
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("Success Rate Performance"),
+                dbc.CardBody([
+                    dcc.Graph(
+                        figure=go.Figure(
+                            go.Indicator(
+                                mode="gauge+number",
+                                value=monthly_data['Success_Rate'].mean(),
+                                title={"text": "Average Success Rate",
+                                       "font": {"size": 16},
+                                       "align": "center"},
+                                number={"suffix": "%",
+                                       "font": {"size": 28}},
+                                gauge={
+                                    'axis': {'range': [0, 100]},
+                                    'bar': {'color': "#006400"},  # Dark green
+                                    'steps': [
+                                        {'range': [0, 75], 'color': 'rgba(0, 100, 0, 0.2)'},
+                                        {'range': [75, 85], 'color': 'rgba(0, 100, 0, 0.4)'},
+                                        {'range': [85, 100], 'color': 'rgba(0, 100, 0, 0.6)'}
+                                    ],
+                                    'threshold': {
+                                        'line': {'color': "red", 'width': 2},
+                                        'thickness': 0.75,
+                                        'value': monthly_data['Success_Rate'].mean()
+                                    }
+                                }
+                            )
+                        ).update_layout(
+                            height=300,
+                            margin=dict(l=30, r=30, t=30, b=30)
+                        )
+                    )
+                ])
+            ], className="shadow-sm")
+        ], width=4),
+
+        # User Activity Metrics
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("User Activity Metrics"),
+                dbc.CardBody([
+                    dcc.Graph(
+                        figure=go.Figure(data=[
+                            go.Scatter(
+                                x=[0.2, 0.5, 0.8],
+                                y=[1.15, 1.15, 1.15],
+                                mode='text',
+                                text=['🌍', '👥', '👤'],
+                                textfont=dict(size=24),
+                                hoverinfo='none',
+                                showlegend=False
+                            ),
+                            go.Scatter(
+                                x=[0.2, 0.5, 0.8],
+                                y=[1, 1, 1],
+                                mode='text',
+                                text=['Active Countries', 'Total Remitters', 'Total Recipients'],
+                                textfont=dict(size=14),
+                                hoverinfo='none',
+                                showlegend=False
+                            ),
+                            go.Scatter(
+                                x=[0.2, 0.5, 0.8],
+                                y=[0.85, 0.85, 0.85],
+                                mode='text',
+                                text=[
+                                    f"{len(country_data[country_data['Country'] != 'Unknown'])}",
+                                    f"{monthly_data['Unique_Remitters'].sum():,}",
+                                    f"{monthly_data['Unique_Recipients'].sum():,}"
+                                ],
+                                textfont=dict(size=24, color='#2E86C1'),
+                                hoverinfo='none',
+                                showlegend=False
+                            )
+                        ]).update_layout(
+                            height=300,
+                            showlegend=False,
+                            xaxis=dict(
+                                showgrid=False,
+                                zeroline=False,
+                                showticklabels=False,
+                                range=[0, 1]
+                            ),
+                            yaxis=dict(
+                                showgrid=False,
+                                zeroline=False,
+                                showticklabels=False,
+                                range=[0.5, 1.2]
+                            ),
+                            margin=dict(l=20, r=20, t=20, b=20),
+                            paper_bgcolor='white',
+                            plot_bgcolor='white'
+                        )
+                    )
+                ])
+            ], className="shadow-sm")
+        ], width=8)
+    ], className="mb-4"),
+
     # User Activity and Geographic Distribution
     dbc.Row([
         # User Activity
@@ -439,6 +569,62 @@ app.layout = dbc.Container([
         ], width=6)
     ], className="mb-4"),
 
+    # Hourly Transaction Pattern
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("Hourly Transaction Pattern"),
+                dbc.CardBody([
+                    dcc.Graph(
+                        figure=go.Figure(data=[
+                            go.Scatter(
+                                x=hourly_data['Hour'],
+                                y=hourly_data['Volume']/1e6,
+                                mode='lines+markers',
+                                name='Volume',
+                                marker=dict(
+                                    size=8,
+                                    color='rgba(26, 118, 255, 0.8)'
+                                ),
+                                line=dict(
+                                    width=2,
+                                    color='rgba(26, 118, 255, 0.8)'
+                                )
+                            )
+                        ]).update_layout(
+                            title='Hourly Volume Distribution',
+                            xaxis_title='Hour of Day',
+                            yaxis_title='Volume (KES Millions)',
+                            yaxis_type='log',
+                            height=350,
+                            margin=dict(l=50, r=50, t=50, b=30),
+                            legend=dict(
+                                orientation="h",
+                                y=1.1,
+                                x=0.5,
+                                xanchor='center'
+                            ),
+                            xaxis=dict(
+                                tickmode='array',
+                                ticktext=[f'{i:02d}:00' for i in range(24)],
+                                tickvals=list(range(24))
+                            )
+                        )
+                    ),
+                    html.Div([
+                        html.P([
+                            "Peak Hour: 11 PM ",
+                            html.Span(
+                                f"(KES {hourly_data['Volume'].max()/1e6:.1f}M)",
+                                className="text-muted"
+                            )
+                        ], className="mb-0 mt-3 regular-text")
+                    ])
+                ])
+            ], className="shadow-sm")
+        ], width=12)
+    ], className="mb-4"),
+
     # Client Market Share and Performance
     dbc.Row([
         # Client Market Share
@@ -473,6 +659,31 @@ app.layout = dbc.Container([
                             )
                         )
                     ),
+                    html.Div([
+                        *[
+                            html.Img(
+                                src=f'/assets/{CLIENT_LOGOS.get(client, "Others.jpg")}',
+                                id=f'client-logo-{client}',
+                                style={
+                                    'maxWidth': '80px',
+                                    'maxHeight': '40px',
+                                    'width': 'auto',
+                                    'height': 'auto',
+                                    'objectFit': 'contain',
+                                    'margin': '5px',
+                                    'padding': '5px',
+                                    'backgroundColor': '#f8f9fa',
+                                    'borderRadius': '5px'
+                                }
+                            ) for client in client_data['Client']
+                        ]
+                    ], style={
+                        'display': 'flex',
+                        'flexWrap': 'wrap',
+                        'justifyContent': 'center',
+                        'alignItems': 'center',
+                        'marginTop': '20px'
+                    }),
                     html.Div([
                         html.P([
                             "Top Client: Lemfi ",

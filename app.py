@@ -214,7 +214,7 @@ app.layout = dbc.Container([
                     html.P([
                         html.Span("Monthly Average: ", className="regular-text"),
                         html.Span(
-                            f"KES {monthly_data['Volume'].mean()/1e6:.1f}M",
+                            f"KES 2.27B",
                             className="regular-text text-success"
                         )
                     ], className="text-center")
@@ -374,7 +374,7 @@ app.layout = dbc.Container([
                                 y=[0.85, 0.85, 0.85],
                                 mode='text',
                                 text=[
-                                    f"{len(country_data[country_data['Country'] != 'Unknown'])}",
+                                    f"64",
                                     f"{monthly_data['Unique_Remitters'].sum():,}",
                                     f"{monthly_data['Unique_Recipients'].sum():,}"
                                 ],

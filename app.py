@@ -243,7 +243,7 @@ app.layout = dbc.Container([
                         className="text-primary text-center"
                     ),
                     html.P([
-                        html.Span("Monthly Growth Rate", className="regular-text"),
+                        html.Span("Monthly Growth Rate: ", className="regular-text"),
                         html.Span(
                             f"27.66%",
                             className="regular-text text-success"

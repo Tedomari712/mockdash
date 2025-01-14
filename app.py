@@ -239,13 +239,13 @@ app.layout = dbc.Container([
                 dbc.CardBody([
                     html.H5("Total Unique Users", className="card-title text-center"),
                     html.H2(
-                        f"{monthly_data['Unique_Remitters'].sum():,.0f}", 
+                        f"1M", 
                         className="text-primary text-center"
                     ),
                     html.P([
-                        html.Span("Recipients: ", className="regular-text"),
+                        html.Span("Monthly Growth Rate", className="regular-text"),
                         html.Span(
-                            f"{monthly_data['Unique_Recipients'].sum():,.0f}",
+                            f"27.66%",
                             className="regular-text text-success"
                         )
                     ], className="text-center")

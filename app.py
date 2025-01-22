@@ -1,4 +1,4 @@
-# Import required libraries
+# Imports
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -9,7 +9,6 @@ import dash_bootstrap_components as dbc
 import numpy as np
 import os
 
-# Add the logo mappings here, before app initialization
 # File name mappings for clients
 CLIENT_LOGOS = {
     'Lemfi': 'CLIENT_LOGOS/LEMFI.png',
@@ -22,7 +21,7 @@ CLIENT_LOGOS = {
     'Finpesa': 'CLIENT_LOGOS/finpesa.png'
 }
 
-# Initialize the app
+# App initialization
 app = dash.Dash(
     __name__, 
     external_stylesheets=[
@@ -31,7 +30,7 @@ app = dash.Dash(
     ]
 )
 
-# This is important for Render deployment
+# Render deployment
 server = app.server
 
 # Custom CSS
@@ -126,7 +125,7 @@ country_data = pd.DataFrame({
     'Market_Share': [5.66, 1.15, 42.21, 0.38, 0.57, 3.16, 0.38, 3.35, 25.33, 17.81]
 })
 
-# Daily data from the PDF
+# Daily data 
 daily_data = pd.DataFrame({
     'Day': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     'Volume': [3446887082.69, 3542203701.92, 3856600588.57, 4174561072.82, 
